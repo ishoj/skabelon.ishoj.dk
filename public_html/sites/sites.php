@@ -55,6 +55,5 @@
  */
 
 $sites = array(
-    'naturcenter.ishoj.dk' => 'naturcenter.ishoj.bellcom.dk',
-    'ishojnaturcenter.dk' => 'naturcenter.ishoj.bellcom.dk',
+    'skabelon.ishoj.dk' => 'skabelon.ishoj.bellcom.dk',
 );
