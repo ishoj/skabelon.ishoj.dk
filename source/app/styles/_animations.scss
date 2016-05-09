@@ -1,0 +1,151 @@
+
+
+@-webkit-keyframes AnimFadeInOpacity { 
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes AnimFadeInOpacityAndScale { 
+  0%   { opacity:0; -webkit-transform:scale(.1); }
+  100% { opacity:1; -webkit-transform:scale(1); }
+}
+@-webkit-keyframes AnimTyping {
+  from { width: 0 }
+  to   { width:100% }
+}
+@-webkit-keyframes AnimFadeInAndScale90to100 { 
+  0%   { opacity:0; -webkit-transform:scale(.9); }
+  100% { opacity:1; -webkit-transform:scale(1); }
+}
+@-webkit-keyframes AnimBoxShow { 
+  0%   { 
+    opacity:0; 
+    -webkit-transform:scale(.1); 
+  }
+  100% { 
+    opacity:1; 
+    -webkit-transform:scale(1); 
+  }
+}
+@-webkit-keyframes AnimBoxHide { 
+  0%   { 
+    opacity:1; 
+    -webkit-transform:scale(1); 
+  }
+  100% { 
+    opacity:0; 
+    -webkit-transform:scale(.1); 
+  }
+}
+
+// UGLEN 
+@-webkit-keyframes uglen-translate-in { 
+  0%   { opacity:0; -webkit-transform: translate(80px, 0); }
+  100% { opacity:1; -webkit-transform: translate(0, 0);}
+}
+@-webkit-keyframes uglen-translate-out { 
+  0%   { opacity:1; -webkit-transform: translate(0, 0); }
+  100% { opacity:0; -webkit-transform: translate(80px, 0);}
+}
+
+// ALMINDELIG VIS/SKJUL
+@-webkit-keyframes AnimShow { 
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes AnimHide { 
+  0%   { opacity:1; }
+  100% { opacity:0; display:none; }
+}
+
+@-webkit-keyframes AnimSignShow { 
+  0%   { opacity:0; -webkit-transform:scale(.1); }
+  100% { opacity:1; -webkit-transform:scale(1); }
+}
+@-webkit-keyframes AnimSignHide { 
+  0%   { opacity:1; -webkit-transform:scale(1); }
+  100% { opacity:0; -webkit-transform:scale(.1); }
+}
+@-webkit-keyframes AnimInBounce { 
+  0%   { 
+    opacity:0; 
+    -webkit-transform:scale(0.4); 
+  }
+  40% { 
+    opacity:1; 
+    -webkit-transform:scale(1.05); 
+  }
+  100% { 
+    opacity:1; 
+    -webkit-transform:scale(1); 
+  }
+}
+@-webkit-keyframes slideInFromBottom700px { 
+  0%   { 
+    opacity:0; 
+    bottom:-700px; 
+//    -webkit-transform : translateY(0); 
+  }
+  100% { 
+    opacity:1; 
+    bottom:0;
+//    -webkit-transform : translateY(-700px);
+  }
+}
+@-webkit-keyframes slideOutToBottom700px { 
+  0%   { 
+    opacity: 1; 
+    bottom:0; 
+  }
+  100% { 
+    opacity: 0; 
+    bottom:-700px; 
+  }
+}
+@-webkit-keyframes slideInFromBottom1080px { 
+  0%   { 
+    opacity:0; 
+    bottom:-1080px; 
+  }
+  100% { 
+    opacity:1; 
+    bottom:0; 
+  }
+}
+@-webkit-keyframes slideOutToBottom1080px { 
+  0%   { 
+    opacity: 1; 
+    bottom:0; 
+  }
+  100% { 
+    opacity: 0; 
+    bottom:-1080px; 
+  }
+}
+@-webkit-keyframes DummyHide { 
+  0%   { opacity:1; }
+  100% { opacity:0; }
+}
+@-webkit-keyframes aktivitetDatoSlideInFromTop { 
+  0%   { 
+    opacity:0; 
+    -webkit-transform: translate(0px, -145px);  
+  }
+  100% { 
+    opacity:1; 
+    -webkit-transform: translate(0px, 0px);  
+  }
+}
+@-webkit-keyframes aktivitetDatoSlideOutToTop { 
+  0%   { 
+    opacity:1; 
+    -webkit-transform: translate(0px, 0px);  
+  }
+  100% { 
+    opacity:0; 
+    -webkit-transform: translate(0px, -330px);  
+  }
+}
+
+
+
+

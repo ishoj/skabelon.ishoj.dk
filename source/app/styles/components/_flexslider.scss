@@ -1,0 +1,285 @@
+/*
+ * jQuery FlexSlider v2.2.0
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ */
+
+
+/* Browser Resets
+*********************************/
+.flex-container a:active,
+.flexslider a:active,
+.flex-container a:focus,
+.flexslider a:focus  {
+  outline: none;
+}
+
+.slides,
+.flex-control-nav,
+.flex-direction-nav {
+  margin: 0; 
+  padding: 0; 
+  list-style: none;
+}
+
+/* Icon Fonts
+*********************************/
+/* Font-face Icons */
+/*
+@font-face {
+	font-family: 'flexslider-icon';
+	src:url('fonts/flexslider-icon.eot');
+	src:url('fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/flexslider-icon.woff') format('woff'),
+		url('fonts/flexslider-icon.ttf') format('truetype'),
+		url('fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+*/
+
+/* FlexSlider Necessary Styles
+*********************************/
+.flexslider {
+  margin: 0; 
+  padding: 0;
+  overflow: hidden;
+  &:hover {
+    .flex-prev {
+      left: 0;
+    }
+    .flex-next {
+      right: 0;
+    }
+  }
+}
+.flexslider .slides > li {
+  display: none; 
+  -webkit-backface-visibility: hidden;
+} /* Hide the slides before the JS is loaded. Avoids image jumping */
+
+.flexslider .slides img {
+  width: 100%; 
+  display: block;
+}
+
+.flex-pauseplay span {
+  text-transform: capitalize;
+}
+
+/* Clearfix for the .slides element */
+.slides:after {
+  content: "\0020"; 
+  display: block; 
+  clear: both; 
+  visibility: hidden; 
+  line-height: 0; 
+  height: 0;
+}
+html[xmlns] .slides {
+  display: block;
+}
+* html .slides {
+  height: 1%;
+}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child {
+  display: block;
+}
+
+/* FlexSlider Default Theme
+*********************************/
+.flexslider { 
+  margin: 0 0 calc-em(40px); 
+  background: #fff; 
+  position: relative; 
+  zoom: 1;
+}
+.flex-viewport { 
+  max-height: calc-em(2000px); 
+  -webkit-transition: all 1s ease; 
+  -moz-transition: all 1s ease; 
+  -o-transition: all 1s ease; 
+  transition: all 1s ease; 
+}
+.loading .flex-viewport { 
+  max-height: calc-em(300px); 
+}
+.flexslider .slides { 
+  zoom: 1; 
+}
+//.carousel li { 
+//  margin-right: calc-em(5px); 
+//}
+
+/* Direction Nav */
+.flex-direction-nav {
+  display: none;
+  a {
+    @extend .icon;  
+    &.flex-prev {
+      @extend .icon-arrow-left;
+    } 
+    &.flex-next {
+      @extend .icon-arrow-right;
+    } 
+  }
+}
+@media (min-width: $bp-large) { // 960px
+  .flex-direction-nav {
+    display: block;
+    *height: 0; 
+    a {
+      position: absolute;
+      top: 35%;
+      width: 1.4375em;
+      height: calc-em(40px);
+      background: $color-white;
+      @include transition(all, 0.3s, ease);
+      @include opacity(0.6);
+      text-align: center;
+      cursor: pointer;
+      display: table-cell;
+      vertical-align: middle;
+      color: $color-gray-dark;
+      font-size: 1.75em;
+      line-height: calc-em(40px);
+      text-decoration: none;
+      &:hover {
+        @include opacity(1.0);
+      }    
+      &.flex-prev {
+        left: -1.4375em;
+        @include rounded(calc-em(2px), top, right);
+        @include rounded(calc-em(2px), bottom, right);
+      } 
+      &.flex-next {
+        right: -1.4375em;
+        @include rounded(calc-em(2px), top, left);
+        @include rounded(calc-em(2px), bottom, left);
+      } 
+    }
+  }
+}
+@media (min-width: $bp-xlarge) { // 1280px
+  .flex-direction-nav {
+    a {
+      width: 1.5em;
+      height: calc-em(44px);
+      font-size: 2.0em;
+      line-height: calc-em(44px);
+      &.flex-prev {
+        left: -1.5em;
+      } 
+      &.flex-next {
+        right: -1.5em;
+      } 
+    }
+  }
+}
+
+
+/* Pause/Play */
+//.flex-pauseplay a { 
+//  display: block; 
+//  width: calc-em(20px); 
+//  height: calc-em(20px); 
+//  position: absolute; 
+//  bottom: calc-em(5px); 
+//  left: calc-em(10px); 
+//  opacity: 0.8; 
+//  z-index: 10; 
+//  overflow: hidden; 
+//  cursor: pointer; 
+//  color: #000; 
+//}
+//.flex-pauseplay a:before  { 
+//  font-family: "flexslider-icon"; 
+//  font-size: calc-em(20px); 
+//  display: inline-block; 
+//  content: '\f004'; 
+//}
+//.flex-pauseplay a:hover  { 
+//  opacity: 1; 
+//}
+//.flex-pauseplay a.flex-play:before { 
+//  content: '\f003'; 
+//}
+
+/* Control Nav */
+.flex-control-nav {
+  width: 100%; 
+  position: absolute; 
+  bottom: calc-em(-14px); 
+  text-align: center;
+}
+.flex-control-nav li {
+  margin: 0 calc-em(6px); 
+  display: inline-block; 
+  zoom: 1; 
+  *display: inline;
+}
+.flex-control-paging li a {
+  width: calc-em(10px); 
+  height: calc-em(10px); 
+  display: block; 
+//  background: #666; 
+//  background: rgba(0,0,0,0.5); 
+//  background: $color-gray-2-light;
+  background: $color-light-gray-normal;
+  cursor: pointer; 
+  text-indent: calc-em(-9999px); 
+  -webkit-border-radius: calc-em(20px); 
+  -moz-border-radius: calc-em(20px); 
+  -o-border-radius: calc-em(20px); 
+  border-radius: calc-em(20px); 
+//  -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); 
+//  -moz-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); 
+//  -o-box-shadow: inset 0 0 3px rgba(0,0,0,0.3); 
+//  box-shadow: inset 0 0 3px rgba(0,0,0,0.3); 
+}
+.flex-control-paging li a:hover { 
+//  background: #333; 
+//  background: rgba(0,0,0,0.7); 
+  background: darken($color-light-gray-dark, 25%);
+}
+.flex-control-paging li a.flex-active { 
+//  background: #000; 
+//  background: rgba(0,0,0,0.9); 
+//  background: $color-gray-dark;
+  background: darken($color-light-gray-dark, 25%);
+  cursor: default; 
+}
+
+//.flex-control-thumbs {
+//  margin: 5px 0 0; 
+//  position: static; 
+//  overflow: hidden;
+//}
+//.flex-control-thumbs li {
+//  width: 25%; 
+//  float: left; 
+//  margin: 0;
+//}
+//.flex-control-thumbs img {
+//  width: 100%; 
+//  display: block; 
+//  opacity: .7; 
+//  cursor: pointer;
+//}
+//.flex-control-thumbs img:hover {
+//  opacity: 1;
+//}
+//.flex-control-thumbs .flex-active {
+//  opacity: 1; 
+//  cursor: default;
+//}
+

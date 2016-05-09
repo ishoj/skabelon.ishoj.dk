@@ -1,0 +1,187 @@
+<?php
+
+module_load_include('inc', 'ishoj_elasticsearch', 'ishoj_elasticsearch.admin');
+
+function ishoj_elasticsearch_menu(){
+    $items = array();
+    $items['search/json/%'] = array(
+	'type' => MENU_CALLBACK,
+	'page callback' => 'ishoj_elasticsearch_get_results_json',
+	'access arguments' => array('access content'),
+        'page arguments' => array(2),
+    );
+
+    $items['admin/config/search/kle'] = array(
+	'title' => 'KLE Weight',
+	'description' => 'Configure the weight of the KLE terms',
+	'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+	'access arguments' => array('administer search_api'),
+	'page callback' => 'ishoj_elasticsearch_kle_settings_page',
+        'file' => 'ishoj_elasticsearch.admin.inc',
+    );
+
+    $items['admin/config/search/phrase'] = array(
+	'title' => 'Phrase catcher',
+	'description' => 'Configure the phrase top search result',
+	'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+	'access arguments' => array('administer search_api'),
+	'page callback' => 'ishoj_elasticsearch_phrase_catcher_settings_page',
+        'file' => 'ishoj_elasticsearch.admin.inc',
+    );
+
+    $items['kle/%/update/%/%/%'] = array(
+	'type' => MENU_CALLBACK,
+	'access arguments' => array('administer search_api'),
+	'page callback' => 'ishoj_elasticsearch_update_kle',
+	'page arguments' => array(1,3,4,5),
+        'file' => 'ishoj_elasticsearch.admin.inc',
+    );
+
+    $items['phrase/%/update'] = array(
+	'type' => MENU_CALLBACK,
+	'access arguments' => array('administer search_api'),
+	'page callback' => 'ishoj_elasticsearch_update_phrase',
+	'page arguments' => array(1),
+        'file' => 'ishoj_elasticsearch.admin.inc',
+    );
+
+    return $items;
+}
+
+
+function ishoj_elasticsearch_elasticsearch_connector_search_api_query_alter($query, &$params){
+    //drupal_set_message("<pre>" . print_r($params['body']['query'],1) . "</pre>");
+
+    $query_str = $params['body']['query']['bool']['must'][0]['multi_match']['query'];
+    $params['body']['query'] = array(
+	'function_score' => array(
+	    'functions' => _ishoj_elasticsearch_get_boosting($query_str),
+	    'query'=> _ishoj_elasticsearch_get_query($query_str)
+	)
+    );
+    $params['body']['size'] = _ishoj_elasticsearch_get_size($query_str);
+
+    //drupal_set_message("<pre>" . print_r($params['body'],1) . "</pre>");
+}
+
+function ishoj_elasticsearch_get_results_json($query){
+    header('Content-Type: text/html; charset=utf-8');
+    //$query = htmlspecialchars($_GET["q"]);
+    $query = str_replace(array('¿', '¾', 'Œ', ''), array('oe', 'ae', 'aa', '%20'), $query);
+
+    $data = array(
+	'query' => array(
+	    'function_score' => array(
+		'functions' => _ishoj_elasticsearch_get_boosting($query),
+		'query' => _ishoj_elasticsearch_get_query($query),
+	    )
+	),
+	'size' => _ishoj_elasticsearch_get_size($query),
+    );
+
+    $data_string = json_encode($data);
+
+    $ch = curl_init('localhost:9200/ishoj/_search');                                                                      
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+	'Content-Type: application/json',                                                                                
+	'Content-Length: ' . strlen($data_string))                                                                       
+    );                                                                                                                   
+     
+    $json = curl_exec($ch);
+    
+    echo $json;
+}
+
+function _ishoj_elasticsearch_get_boosting($query_string = null){
+    $now = date('Y-m-d H:i:s', time());
+    $fromDateCondition = db_or();
+    $fromDateCondition->condition('from_date', $now, "<=");
+    $fromDateCondition->condition('from_date', NULL, 'is');
+
+    $untilDateCondition = db_or();
+    $untilDateCondition->condition('until_date', $now, ">=");
+    $untilDateCondition->condition('until_date', NULL, 'is');
+    
+    $results = db_select('ishoj_elasticsearch_kle', 'i')
+	->fields('i')
+	->condition('weight', 1, "!=")
+	->condition($fromDateCondition)
+	->condition($untilDateCondition)
+	->execute()
+	->fetchAll();
+
+    $boosting = array();
+    foreach ($results as $kle_term){
+	$boosting[] = array(
+	    'weight' => $kle_term->weight,
+	    'filter' => array(
+		'term' => array('field_os2web_borger_dk_kle' => $kle_term->tid, 'field_os2web_base_field_kle_ref' => $kle_term->tid)
+	    )
+	);
+    }
+
+    // making sure, that all found phrase NID are on top of the list (multiplying weight by 100)
+    $results = db_query('SELECT * FROM {ishoj_elasticsearch_phrase_catcher} i WHERE :phrase LIKE i.phrase
+			AND nid IS NOT NULL AND (i.from_date IS NULL or i.from_date <= :now)
+			AND  (i.until_date IS NULL or i.until_date >= :now)',
+			array(':phrase' => $query_string, ':now' => $now))->fetchAll();
+
+    foreach ($results as $phrase){
+	$boosting[] = array(
+		'weight' => intval($phrase->weight)*100,
+		'filter' => array(
+		    'term' => array('nid' => $phrase->nid)
+		)
+	);
+    }
+
+    return $boosting;
+}
+
+function _ishoj_elasticsearch_get_query($query_string) {
+    $query = array(
+	'bool' => array(
+	    'should' => array(
+		array(
+		    'query_string' => array(
+			'query' => $query_string,
+			'fields' => array('_all')
+		    )
+		),
+	    ),
+	)
+    );
+
+    // making sure the all found phrase NID are included into the search result
+    $results = db_query('SELECT * FROM {ishoj_elasticsearch_phrase_catcher} i WHERE :phrase LIKE i.phrase
+			AND nid IS NOT NULL AND (i.from_date IS NULL or i.from_date <= :now)
+			AND  (i.until_date IS NULL or i.until_date >= :now)',
+			array(':phrase' => $query_string, ':now' => date('Y-m-d H:i:s', time())))->fetchAll();
+    foreach($results as $phrase) {
+	$query['bool']['should'][] = array(
+	    'term' => array('nid' => $phrase->nid)
+	);
+    }
+
+    return $query;
+}
+
+function _ishoj_elasticsearch_get_size($query_string){
+    // making sure the all found phrase NID are included into the search result
+    $results = db_query('SELECT exclusive FROM {ishoj_elasticsearch_phrase_catcher} i WHERE :phrase LIKE i.phrase
+	AND nid IS NOT NULL AND (i.from_date IS NULL or i.from_date <= :now)
+	AND  (i.until_date IS NULL or i.until_date >= :now)',
+	array(':phrase' => $query_string, ':now' => date('Y-m-d H:i:s', time())))->fetchAll();
+    
+    foreach($results as $result) {
+	if ($result->exclusive) {//if any of the mathcing phrase are set to be exclusive
+	    return 1;
+	}
+    }
+    
+    //non of the matching phrases are set to be exclusive, return defaul size
+    return 10;
+}

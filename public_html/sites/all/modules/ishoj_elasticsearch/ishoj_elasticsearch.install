@@ -1,0 +1,82 @@
+<?php
+function ishoj_elasticsearch_schema() {
+  $schema['ishoj_elasticsearch_kle'] = array(
+    'description' => t('Table to store KLE influence on elasticsearch results'),
+    'fields' => array(
+      'tid' => array(
+        'description' => t('TID of KLE term'),
+	'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'from_date' => array(
+        'description' => t('The date from when this weight is valid'),
+        'type' => 'varchar',
+	'mysql_type' => 'datetime',
+      ),
+      'until_date' => array(
+        'description' => t('The date until when this weight is valid'),
+        'type' => 'varchar',
+	'mysql_type' => 'datetime',
+      ),
+      'weight' => array(
+        'description' => t('The weight of this KLE term in the search results'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1
+      )
+    ),
+    'primary key' => array('tid'),
+  );
+
+  $schema['ishoj_elasticsearch_phrase_catcher'] = array(
+    'description' => t('Table to store the phrase cather information'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('ID'),
+	'type' => 'serial',
+        'unsigned' => TRUE,
+	'not null' => TRUE
+      ),
+      'phrase' => array(
+        'description' => t('The phrase to catch'),
+        'type' => 'varchar',
+	'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'nid' => array(
+        'description' => t('NID of the node'),
+	'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'exclusive' => array(
+        'description' => t('This desides whether the attached node should be returned as a single result'),
+	'type' => 'int',
+        'unsigned' => TRUE,
+	'default' => 0
+      ),
+      'from_date' => array(
+        'description' => t('The date from when this phrase is active'),
+        'type' => 'varchar',
+	'mysql_type' => 'datetime',
+      ),
+      'until_date' => array(
+        'description' => t('The date until when this phrase is active'),
+        'type' => 'varchar',
+	'mysql_type' => 'datetime',
+      ),
+      'weight' => array(
+        'description' => t('The weight of this phrase in the search results is used when there are more than one phrases matching'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1
+      )
+    ),
+    'primary key' => array('id'),
+  );
+  
+  return $schema;
+}

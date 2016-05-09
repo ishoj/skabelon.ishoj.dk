@@ -1,0 +1,12 @@
+{
+  "name": "naturcenter-ishoj-dk",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.8.1",
+    "matchHeight": "matchheight#^0.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}

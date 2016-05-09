@@ -1,0 +1,218 @@
+@import
+//    "breakpoint",
+//    "compass/css3",
+	"config";
+//	"mixins",
+//	"components/reset";
+
+
+/************************/
+/*** ADMIN STYLESHEET ***/
+/************************/
+
+// Rediger node knap
+.edit-node {
+  float: left;
+  margin-top: 1em;
+  background: $color-yellow-normal;
+  &:hover {
+//    background: darken($color-yellow-normal, 10%);
+    background: $color-gray-dark;
+    a {
+      color: $color-white !important;
+      background-position:12px -48px;
+    }
+  }
+  a {
+    display: block;
+    padding: .75em 1.25em .75em .5em;
+    color: $color-gray-dark !important;
+//    font-size: 1.25em;
+    font-weight: 400;
+    background:url(../images/sprites-no/editor/editor_btn_edit.png) left no-repeat;
+    background-position:12px 0px;
+    &:hover {
+      text-decoration: none;
+    }
+    span {
+      padding-left: 2.25em;
+
+    }
+  }
+
+}
+
+
+
+/* Redaktørmenu */
+.redaktormenu  {
+  padding-bottom: 0;
+}
+
+.editor ul.menu .leaf  {
+  list-style:none;
+} /* Drupal fix */
+
+.editor {
+  float: left;
+  width: 100%;
+  display: block;
+  background: $color-yellow-normal;
+  font-weight: 300;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .editorInner,
+  .editorInner div {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  /* 1st level*/
+  .menu {
+    float: left;
+    margin: 0;
+    padding: 0;
+    li  {
+      float: left;
+      height: 100%;
+      display: block;
+      cursor: pointer;
+      background: none;
+      margin: 0;
+      padding: 0;
+      &:hover {
+        background: $color-gray-dark;
+        a {
+          color: $color-white;
+        }
+        ul {
+          left:auto;
+        }
+      }
+      a {
+        width: auto;
+        height: 100%;
+        display: block;
+        color: $color-gray-dark;
+        text-decoration: none;
+        font-size: 1.25em;
+        font-weight: 400;
+        padding: 0.75em 1.5em;
+        cursor: pointer;
+        letter-spacing: 0.125em;
+        text-transform: uppercase;
+      }
+      &.active:hover {
+        background: $color-gray-dark;
+        a {
+          color: $color-white;
+        }
+      }
+      ul {
+        position: absolute;
+        z-index: 100;
+        width: 16em;
+        height: auto;
+        left: -999em;
+        padding: 1.0em;
+        background: $color-gray-dark;
+        li {
+          width: 100%;
+          height: 3em;
+          border: none;
+          border-top: 1px solid $color-gray-light;
+          &:nth-child(1) {
+            border: none;
+          }
+          &:hover {
+            background: $color-white;
+            a {
+              color: $color-gray-dark;
+
+            }
+            ul {
+              width: 20em;
+              left: 17.0em !important;
+              top: auto;
+              margin-top: -4.0em;
+              li {
+                &:hover {
+                  a {
+                    color: $color-gray-dark;
+                  }
+                }
+              }
+            }
+          }
+          a {
+            font-size: 1.0em;
+            font-weight: 300;
+            line-height: 3em;
+            padding: 0 1.0em 0 2.5em ;
+            text-transform: none;
+            color: $color-white;
+            border: none;
+          }
+          ul {
+            position: absolute;
+            z-index: 101;
+            width: 18em;
+            height: auto;
+            left: -999em !important;
+            padding: 1.0em;
+            margin-left: -2em;
+            background: $color-gray-dark;
+            li {
+              &:hover {
+                a {
+                  color: $color-gray-dark !important;
+                }
+              }
+              a {
+                color: $color-white !important;
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
+
+
+
+.editor li.plus a,
+.editor li.plus:hover li.plus a {
+  background:url(../images/sprites-no/editor/editor_btn_plus.png) left no-repeat !important;
+  background-position:6px -48px !important;
+}
+.editor li.plus:hover a,
+.editor li.plus:hover li.plus:hover a {
+  background-position: 6px 0 !important;
+}
+
+.editor li.search a, .editor li.search:hover li.search a 		{ background:url(../images/sprites-no/editor/editor_btn_search.png) left no-repeat; background-position:6px -48px; }
+.editor li.search:hover a, .editor li.search:hover li.search:hover a { background-position:6px 0; }
+
+.editor li.frontpage a, .editor li.frontpage:hover li.frontpage a { background:url(../images/sprites-no/editor/editor_btn_frontpage.png) left no-repeat !important; background-position:6px -48px !important; }
+.editor li.frontpage:hover a, .editor li.frontpage:hover li.frontpage:hover a { background-position:6px 0 !important; }
+
+.editor li.user a, .editor li.user:hover li.user a { background:url(../images/sprites-no/editor/editor_btn_user.png) left no-repeat !important; background-position:6px -48px !important; }
+.editor li.user:hover a, .editor li.user:hover li.user:hover a { background-position:6px 0 !important; }
+
+.editor li.edit a, .editor li.edit:hover li.edit a { background:url(../images/sprites-no/editor/editor_btn_edit.png) left no-repeat !important; background-position:6px -48px !important; }
+.editor li.edit:hover a, .editor li.edit:hover li.edit:hover a { background-position:6px 0 !important; }
+
+.editor li.logout a, .editor li.logout:hover li.logout a { background:url(../images/sprites-no/editor/editor_btn_logout.png) left no-repeat !important; background-position:6px -48px !important; }
+.editor li.logout:hover a, .editor li.logout:hover li.logout:hover a { background-position:6px 0 !important; }
+
+.editor li.adduser a, .editor li.adduser:hover li.adduser a { background:url(../images/sprites-no/editor/editor_btn_adduser.png) left no-repeat !important; background-position:6px -48px !important; }
+.editor li.adduser:hover a, .editor li.adduser:hover li.adduser:hover a { background-position:6px 0 !important; }

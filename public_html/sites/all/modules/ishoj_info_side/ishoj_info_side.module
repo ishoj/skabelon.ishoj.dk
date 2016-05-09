@@ -1,0 +1,64 @@
+<?php
+/**
+ * @file
+ * Code for the Ishoj info side feature.
+ */
+
+include_once 'ishoj_info_side.features.inc';
+
+function ishoj_info_side_form_info_side_node_form_alter(&$form, &$form_state, $form_id) {
+  $lang = $form['field_infotv_skabelon']['#language'];
+  $form['field_infotv_skabelon'][$lang]['#ajax'] = array(
+    'callback' => 'ishoj_info_side_ajax',
+    'wrapper' => 'foto_preview_div',
+  );
+  $term = NULL;
+  $output = "";
+  if (isset($form_state['values']['field_infotv_skabelon'])) {
+    $tid = $form_state['values']['field_infotv_skabelon'][$lang][0]['tid'];
+    $term = taxonomy_term_load($tid);
+  }
+  elseif ($tid = $form['field_infotv_skabelon'][$lang]['#default_value'][0]) {
+    $term = taxonomy_term_load($tid);
+  }
+  if ($term && $image = field_get_items('taxonomy_term', $term, 'field_infotv_skabelon_foto')) {
+    $output = field_view_value('taxonomy_term',$term,'field_infotv_skabelon_foto',$image[0],
+      array(
+        'type' => 'image',
+        'settings' => array(
+          'image_style' => '',
+        ),
+      )
+    );
+  }
+  $form['foto_preview_wrappe'] = array(
+    '#type' => 'fieldset',
+    '#prefix' => '<div style="width:50%;">',
+    '#suffix' => '</div>',
+    '#weight' => 16.5,
+  );
+  $form['foto_preview_wrappe']['foto_preview'] = array(
+    '#type' => 'item',
+    '#prefix' => '<div id="foto_preview_div" style="width=50%; height:auto">',
+    '#markup' => render($output),
+    '#suffix' => '</div>',
+  );
+  $form['#group_children']['foto_preview_wrappe'] = 'group_indstillinger';
+}
+
+function ishoj_info_side_ajax($form, $form_state) {
+  $lang = $form['field_infotv_skabelon']['#language'];
+  $tid = $form_state['values']['field_infotv_skabelon'][$lang][0]['tid'];
+  $term = taxonomy_term_load($tid);
+  if ($image = field_get_items('taxonomy_term', $term, 'field_infotv_skabelon_foto')) {
+    $output = field_view_value('taxonomy_term',$term,'field_infotv_skabelon_foto',$image[0],
+      array(
+        'type' => 'image',
+        'settings' => array(
+          'image_style' => '',
+        ),
+      )
+    );
+  }
+  return '<div id="foto_preview_div">' . render($output) . '</div>';
+}

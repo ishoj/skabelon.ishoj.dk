@@ -1,0 +1,247 @@
+//
+//	MIXINS & FUNCTIONS
+//	A few simple Sass helpers.
+//
+
+// Vendor prefix mixin
+// Forked from Bourbon. https://github.com/thoughtbot/bourbon/
+//
+// Kaldes fx via: @include prefixer(transform, scale(1.1), (webkit, moz, ms, o, spec));
+//
+@mixin prefixer($property, $value, $prefixes) {
+	@each $prefix in $prefixes {
+		@if $prefix == webkit {
+			-webkit-#{$property}: $value;
+		}
+		@else if $prefix == moz {
+			-moz-#{$property}: $value;
+		}
+		@else if $prefix == ms {
+			-ms-#{$property}: $value;
+		}
+		@else if $prefix == o {
+			-o-#{$property}: $value;
+		}
+		@else if $prefix == spec {
+			#{$property}: $value;
+		}
+		@else  {
+			@warn "Unrecognized prefix: #{$prefix}";
+		}
+	}
+}
+
+// @font-face mixin
+// Order of the includes matters, and it is: normal, bold, italic, bold+italic.
+// Forked from Bourbon. https://github.com/thoughtbot/bourbon/
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $font-family;
+		font-weight: $weight;
+		font-style: $style;
+
+		src: url('#{$file-path}.eot');
+		src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'),
+		     url('#{$file-path}.woff') format('woff'),
+		     url('#{$file-path}.ttf') format('truetype'),
+		     url('#{$file-path}.svg##{$font-family}') format('svg');
+	}
+}
+
+// Strip units from values
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+// Calculate ems from pixels
+@function calc-em($px, $base: 16) {
+	$px: strip-unit($px);
+	$base: strip-unit($base);
+	@if $px == 1 {
+		@return 0.0725em;
+	}
+	@return ($px / $base) * 1em;
+}
+
+
+/////  EGNE MIXINS  ///////////////////////////////////////////////////////
+
+// Egne mixins
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+	-webkit-box-shadow:$top $left $blur $color #{$inset};
+	-moz-box-shadow:$top $left $blur $color #{$inset};
+	box-shadow:$top $left $blur $color #{$inset};
+}
+
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+
+// .box { @include border-radius(10px); }
+  
+@mixin backgrounds-color($name, $color, $bgcolor) { 
+	.bg-#{$name} {
+		color: $color;
+		background-color: $bgcolor;
+	}
+}
+
+@mixin button($name, $btncolor) {
+	.btn-#{$name} {
+		background-color: $btncolor;
+		border-color: $btncolor;
+ 
+	&:hover, 
+	a &:hover{
+		background-color: darken($btncolor, 10%);
+		border-color: darken($btncolor, 10%);
+	}
+	}
+ }  
+
+  
+@mixin rounded($radius, $vert, $horz) {
+	@if $vert != null and $horz != null {
+/*		-moz-border-#{$vert}-#{$horz}-radius: $radius;*/
+		-webkit-border-#{$vert}-#{$horz}-radius: $radius;
+		border-#{$vert}-#{$horz}-radius: $radius;
+	}
+	@else {
+/*		-moz-border-radius: $radius;*/
+		-webkit-border-radius: $radius;
+		border-radius: $radius;	
+	}
+}
+
+@mixin transition($property, $time, $method) {
+	@if $property != null {
+		-webkit-transition: $property $time $method;
+		-moz-transition:    $property $time $method;
+		-ms-transition:     $property $time $method;
+		-o-transition:      $property $time $method;
+		transition:         $property $time $method;
+	}
+	@else {
+		-webkit-transition: $time $method;
+		-moz-transition:    $time $method;
+		-ms-transition:     $time $method;
+		-o-transition:      $time $method;
+		transition:         $time $method;
+	}
+}
+/* Usage - Stick into the top of your SCSS sheet and @include where needed for cross browser transitions. 
+
+.class {
+     @include transition($transition-property, $transition-time, $method);
+}
+
+$transition-property = the property you want to transition
+$transition-time = seconds you want the transition to last
+$method = how you want it to transition - e.g. ease-in-out
+
+Usage example;
+
+-------------
+
+.item {
+    @include transition(padding, 1s, ease-in-out);
+}
+
+//ingen property-argument sendt med
+
+.item {
+    @include transition(null, 1s, ease-in-out);
+}
+
+-------------
+
+*/
+
+
+// // -------------------------------------------------------------------------------
+// // Mixin for Fixed aspect ratios
+// // -------------------------------------------------------------------------------
+@mixin fixed-ratio($width, $height) {
+  $padding-top: ($height / $width) * 100%;
+  padding-top: $padding-top;
+  
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+}
+// // -----------------------------------------------------------------
+// // Demo usage of Fixed aspect ratios
+// // -----------------------------------------------------------------
+//div {
+//  @include fixed-ratio(480px, 300px);
+//  background-image: url(image.jpg);
+//}
+ 
+
+// Opacity mixon
+// Inluderes via @include opacity(0.6); 
+@mixin opacity($value) {
+  opacity: $value;
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=” $value * 100 “)';
+  filter: alpha(opacity= $value * 100 );
+//  zoom: 1;
+}
+
+
+  
+// // -------------------------------------------------------------------------------
+// // Mixin for fluid aspect ratios
+// // http://voormedia.com/blog/2012/11/responsive-background-images-with-fixed-or-fluid-aspect-ratios
+// // -------------------------------------------------------------------------------
+/* Calculate fluid ratio based on two dimensions (width/height) */
+@mixin fluid-ratio($large-size, $small-size) {
+  $width-large: nth($large-size, 1);
+  $width-small: nth($small-size, 1);
+  $height-large: nth($large-size, 2);
+  $height-small: nth($small-size, 2);
+  $slope: ($height-large - $height-small) / ($width-large - $width-small);
+  $height: $height-small - $width-small * $slope;
+
+  padding-top: $slope * 100%;
+  height: $height;
+
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+}
+// // -----------------------------------------------------------------
+// // Demo usage of fluid-ratio
+// // -----------------------------------------------------------------
+//div.fluidratio {
+  /* This element will have fluid ratio from 4:1 at 800px to 2:1 at 300px. */
+//  @include fluid-ratio(800px 200px, 300px 150px);
+//  background-image: url(http://voormedia.com/examples/amsterdam.jpg);
+//}
+
+
+// // -------------------------------------------------------------------------------
+// // Mixin media queries
+// // http://seesparkbox.com/foundry/structuring_and_serving_styles_for_older_browsers
+// // https://github.com/sparkbox/SB-Media
+// // -------------------------------------------------------------------------------
+$no-mq-support: false !default;
+$serve-to-nomq-max-width: $bp-large; // 60em = 960px
+
+@mixin sb-media($query) {
+  @if $no-mq-support{
+    @if $query < $serve-to-nomq-max-width{
+      @content;
+    }
+  } @else {
+    @media ( 'min-width:' + $query ) {
+      @content;
+    }
+  }
+}
+

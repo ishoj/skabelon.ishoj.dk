@@ -1,0 +1,112 @@
+/* =============================================================
+	BUTTONS
+	Styling for CSS buttons.
+ * ============================================================= */
+
+.btn {
+  display: inline-block;
+  font-size: calc-em(15px);
+  padding: calc-em(13px) calc-em(18px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: calc-em(1px);
+  background-color: $color-blue-normal;
+  margin-right: calc-em(5px);
+  margin-bottom: calc-em(5px);
+  border-bottom: calc-em(4px) solid darken( $color-blue-normal, 10% );
+}
+
+.btn,
+.btn:hover,
+a .btn:hover,
+.btn.active {
+	color: $color-white;
+}
+
+.btn:hover,
+a .btn:hover,
+.btn.active {
+  background-color: darken( $color-blue-normal, 10% );
+  border-color: darken( $color-blue-dark, 20% );
+  text-decoration: none;
+}
+
+
+.btn:active,
+.btn.active {
+	box-shadow: inset 0 calc-em(2.5px) calc-em(4px) rgba(0, 0, 0, 0.15), 0 calc-em(1px) calc-em(2.5px) rgba(0, 0, 0, 0.05);
+	outline: 0;
+}
+
+.btn.disabled,
+.btn[disabled] {
+	pointer-events: none;
+	cursor: not-allowed;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+    box-shadow: none;
+}
+
+.btn-large {
+//	padding: calc-em(11px) calc-em(15px);
+	padding: calc-em(17px) calc-em(21px);
+  margin-bottom: 1em;
+	font-size: 1.25em;
+  font-weight: 300;
+	line-height: normal;
+  background: none;
+//  border: calc-em(2px) solid;
+}
+
+.btn-outline {
+	padding: calc-em(14px) calc-em(21px);
+    border: calc-em(1px) solid;
+}
+
+.btn-secondary, a .btn-secondary {
+//	background-color: $color-gray-dark; 
+	background-color: none; 
+//	border-color: $color-gray-dark;
+  color: $color-gray-light;
+	border-color: $color-gray-light;
+  border: calc-em(3px) solid $color-gray-light;
+  min-width: 14em;
+  font-weight: 400;
+  
+}
+
+.btn-secondary:hover,
+a .btn-secondary:hover,
+.btn-secondary.active {
+  background: none;
+  border-color: $color-blue-normal;
+//	background-color: darken( $color-gray-dark, 15% );
+//	border-color: darken( $color-gray-dark, 15% );
+}
+
+
+.btn-block,
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block {
+	display: block;
+	width: 100%;
+	margin-right: 0;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+button,
+.btn {
+	cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	/* Override default Webkit/Firefox button styling */
+	background-image: none;
+	-webkit-appearance: none;
+}
+
+.btn:last-child,
+input.btn {
+	margin-right: 0;
+}

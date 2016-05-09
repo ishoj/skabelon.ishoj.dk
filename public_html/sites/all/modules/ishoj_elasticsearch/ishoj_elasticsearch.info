@@ -1,0 +1,4 @@
+name = Ishoj Elastic search
+description = "Module that add special functionality and configuration to default elastic search"
+core = 7.x
+package = Elasticsearch

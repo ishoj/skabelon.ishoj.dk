@@ -1,0 +1,13 @@
+node_modules
+bower_components
+.tmp
+.sass-cache
+test/bower_components
+.DS_Store
+logs
+os2web-deploy
+tmp
+vendor
+public_html/sites/*/settings*.php
+public_html/sites/*/files
+public_html/sites/*/private
