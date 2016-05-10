@@ -467,89 +467,89 @@
 
 
       <!-- AKTIVITER START -->
-      <section class="activities">
+      <!-- <section class="activities">
         <div class="container">
           <div class="row">
             <div class="grid-full">
               <h2>Offentlige ture</h2>
               <div class="swiper-container-activities">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper"> -->
                 <?php
-                  $output = "";
-                  $url = "http://www.ishoj.dk/json_aktiviteter_arrangoer_tid/3121?no_login=1&hest=" . rand();
-                  // Arrangør: Ishøj Naturcenter = tid 3121
-                  $request = drupal_http_request($url);
-                  $json_response = drupal_json_decode($request->data);
-                  if($json_response) {
-                    foreach ($json_response as $response_data) {
-                      $output = $output . "<div class=\"swiper-slide\">";
-                      // LINK
-                      // $output = $output . "<a href=\"http://www.ishoj.dk/" . $response_data['link'] . "\" title=\"" . $response_data['title'] . "\">";
-                      $output = $output . "<a href=\"/visaktivitet?nid=" . $response_data['nid'] . "&ds=" . $response_data['dato_datostreng'] . "\" title=\"" . $response_data['title'] . "\">";
-                      // DATO
-                      if($response_data['dato_dag_maaned']) {
-                         $output = $output . "<div class=\"date\">" . $response_data['dato_dag_maaned'] . "</div>";
-                      }
-                      $output = $output . "<div class=\"circle\">";
-                      $output = $output . "<div></div>";
-                      $output = $output . "</div>";
-                      $output = $output . "<div class=\"description\">";
-                      // FOTO
-                      if($response_data['foto']) {
-                         $output .= "<img style=\"margin-top: 1em;\" class=\"aktiviteter-swiper-foto\" src=\"" . $response_data['foto']['src'] . "\">";
-                      }
-                      // TITEL
-                      $output = $output . "<h3>" . $response_data['title'] . "</h3>";
-                      // TYPE (KATEGORIER)
-                      // if($response_data['kategori']) {
-                      //    $output = $output . "<p class=\"category\">" . $response_data['kategori'] . "</p>";
-                      // }
-                      // DATO OG KLOKKESLÆT
-                      if($response_data['dato_ugedag_dag_maaned'] and $response_data['dato_klokkeslaet']) {
-                         $output = $output . "<p>" . $response_data['dato_ugedag_dag_maaned'] . " kl. " . $response_data['dato_klokkeslaet'] . "</p>";
-                      }
-                      // UGEDAG OG DATO
-                      // if($response_data['dato_ugedag_dag_maaned']) {
-                      //    $output = $output . "<p><span>Dato:</span> " . $response_data['dato_ugedag_dag_maaned'] . "</p>";
-                      // }
-                      // KLOKKESLÆT
-                      // if($response_data['dato_klokkeslaet']) {
-                      //    $output = $output . "<p><span>Klokken:</span> " . $response_data['dato_klokkeslaet'] . "</p>";
-                      // }
-                      // AKTIVITETSSTED
-                      if($response_data['sted']) {
-                         $output = $output . "<p><span>Sted:</span> " . $response_data['sted'] . "</p>";
-                      }
-                      // DELTAGERBETALING
-                      if($response_data['deltagerbetaling']){
-                        if($response_data['deltagerbetaling'] == "Gratis") {
-                          // $output = $output . "<p>" . $response_data['deltagerbetaling'] . "</p>";
-                          $output = $output . "<p><span class=\"gratis-adgang\">Gratis adgang</span></p>";
-                        }
-                      }
-                      $output = $output . "</div>";
-                      $output = $output . "</a>";
-                      $output = $output . "</div>";
-
-                    }
-                  }
-                  print $output;
+                  // $output = "";
+                  // $url = "http://www.ishoj.dk/json_aktiviteter_arrangoer_tid/3121?no_login=1&hest=" . rand();
+                  // // Arrangør: Ishøj Naturcenter = tid 3121
+                  // $request = drupal_http_request($url);
+                  // $json_response = drupal_json_decode($request->data);
+                  // if($json_response) {
+                  //   foreach ($json_response as $response_data) {
+                  //     $output = $output . "<div class=\"swiper-slide\">";
+                  //     // LINK
+                  //     // $output = $output . "<a href=\"http://www.ishoj.dk/" . $response_data['link'] . "\" title=\"" . $response_data['title'] . "\">";
+                  //     $output = $output . "<a href=\"/visaktivitet?nid=" . $response_data['nid'] . "&ds=" . $response_data['dato_datostreng'] . "\" title=\"" . $response_data['title'] . "\">";
+                  //     // DATO
+                  //     if($response_data['dato_dag_maaned']) {
+                  //        $output = $output . "<div class=\"date\">" . $response_data['dato_dag_maaned'] . "</div>";
+                  //     }
+                  //     $output = $output . "<div class=\"circle\">";
+                  //     $output = $output . "<div></div>";
+                  //     $output = $output . "</div>";
+                  //     $output = $output . "<div class=\"description\">";
+                  //     // FOTO
+                  //     if($response_data['foto']) {
+                  //        $output .= "<img style=\"margin-top: 1em;\" class=\"aktiviteter-swiper-foto\" src=\"" . $response_data['foto']['src'] . "\">";
+                  //     }
+                  //     // TITEL
+                  //     $output = $output . "<h3>" . $response_data['title'] . "</h3>";
+                  //     // TYPE (KATEGORIER)
+                  //     // if($response_data['kategori']) {
+                  //     //    $output = $output . "<p class=\"category\">" . $response_data['kategori'] . "</p>";
+                  //     // }
+                  //     // DATO OG KLOKKESLÆT
+                  //     if($response_data['dato_ugedag_dag_maaned'] and $response_data['dato_klokkeslaet']) {
+                  //        $output = $output . "<p>" . $response_data['dato_ugedag_dag_maaned'] . " kl. " . $response_data['dato_klokkeslaet'] . "</p>";
+                  //     }
+                  //     // UGEDAG OG DATO
+                  //     // if($response_data['dato_ugedag_dag_maaned']) {
+                  //     //    $output = $output . "<p><span>Dato:</span> " . $response_data['dato_ugedag_dag_maaned'] . "</p>";
+                  //     // }
+                  //     // KLOKKESLÆT
+                  //     // if($response_data['dato_klokkeslaet']) {
+                  //     //    $output = $output . "<p><span>Klokken:</span> " . $response_data['dato_klokkeslaet'] . "</p>";
+                  //     // }
+                  //     // AKTIVITETSSTED
+                  //     if($response_data['sted']) {
+                  //        $output = $output . "<p><span>Sted:</span> " . $response_data['sted'] . "</p>";
+                  //     }
+                  //     // DELTAGERBETALING
+                  //     if($response_data['deltagerbetaling']){
+                  //       if($response_data['deltagerbetaling'] == "Gratis") {
+                  //         // $output = $output . "<p>" . $response_data['deltagerbetaling'] . "</p>";
+                  //         $output = $output . "<p><span class=\"gratis-adgang\">Gratis adgang</span></p>";
+                  //       }
+                  //     }
+                  //     $output = $output . "</div>";
+                  //     $output = $output . "</a>";
+                  //     $output = $output . "</div>";
+                  //
+                  //   }
+                  // }
+                  // print $output;
 
 
                 ?>
-                </div>
+                <!-- </div>
               </div>
               <div class="activities-swiper-button-container">
                 <div class="swiper-button activities-swiper-button-prev"></div>
                 <div class="swiper-button activities-swiper-button-next"></div>
-              </div>
+              </div> -->
               <!-- <div class="more-content">
                 <h3><a href="/kategori/aktiviteter" title="Få en oversigt over aktiviteter og arrangementer i Ishøj Kommune">Flere aktiviteter</a></h3>
               </div> -->
-            </div>
+            <!-- </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!-- AKTIVITER SLUT -->
 
       <!-- FOOTER-BG START -->
