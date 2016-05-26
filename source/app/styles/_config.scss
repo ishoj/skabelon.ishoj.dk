@@ -91,6 +91,187 @@ $bp-large-3:  72em;   // 1152px - Tweakpoint
 $bp-xlarge:   80em;   // 1280px
 $bp-xlarge-2: 90em;   // 1440px - Tweakpoint
 
+.bp-xsmall {
+  display: block;
+  // @media only screen and (min-width: $bp-xsmall) { display: block; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.small {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: block; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.small-2 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: block; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-medium {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: block; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-medium-1 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: block; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-medium-2 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: block; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-medium-3 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: block; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-large {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: block; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-large-2 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: block; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-large-3 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: block; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-xlarge {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: block; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: none; }
+}
+
+.bp-xlarge-2 {
+  @media only screen and (min-width: $bp-xsmall) { display: none; }
+  @media only screen and (min-width: $bp-small) { display: none; }
+  @media only screen and (min-width: $bp-small-2) { display: none; }
+  @media only screen and (min-width: $bp-medium) { display: none; }
+  @media only screen and (min-width: $bp-medium-1) { display: none; }
+  @media only screen and (min-width: $bp-medium-2) { display: none; }
+  @media only screen and (min-width: $bp-medium-3) { display: none; }
+  @media only screen and (min-width: $bp-large) { display: none; }
+  @media only screen and (min-width: $bp-large-2) { display: none; }
+  @media only screen and (min-width: $bp-large-3) { display: none; }
+  @media only screen and (min-width: $bp-xlarge) { display: none; }
+  @media only screen and (min-width: $bp-xlarge-2) { display: block; }
+}
+
 
 // Sizing
 $font-base: 100%;
