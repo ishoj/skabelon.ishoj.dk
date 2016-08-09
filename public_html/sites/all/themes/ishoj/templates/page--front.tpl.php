@@ -166,13 +166,13 @@
               /////////////////////////////
               ////   NODE NAVIGATION   ////
               /////////////////////////////
-              // $output .= "<div class=\"row\">";
-              //   $output .= "<div class=\"grid-full\">";
-              //     $output .= "<div class=\"row row-start-small match-heights-grid-full node-navigation\" data-match-heights-off>";
-              //       $output .= views_embed_view('node_navigation','default');
-              //     $output .= "</div>";
-              //   $output .= "</div>";
-              // $output .= "</div>";
+              $output .= "<div class=\"row\">";
+                $output .= "<div class=\"grid-full\">";
+                  $output .= "<div class=\"row row-start-small match-heights-grid-full node-navigation\" data-match-heights-off>";
+                    $output .= views_embed_view('node_navigation','default');
+                  $output .= "</div>";
+                $output .= "</div>";
+              $output .= "</div>";
 
               /////////////////////
               ////   RÆKKE 1   ////
