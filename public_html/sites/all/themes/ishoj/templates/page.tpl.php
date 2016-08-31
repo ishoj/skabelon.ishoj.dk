@@ -167,6 +167,13 @@
             <div class="grid-third">
               <?php //print render($page['footer_kontakt']); ?>
               <?php print views_embed_view('kontakt_kle','default', $node->field_os2web_base_field_kle_ref['und'][0][tid]); ?>
+              <?php
+              // REDIGÉR-KONTAKTOPLYSNINGER-KNAP
+              if($logged_in) {
+                print "<div class=\"edit-node\"><a href=\"/taxonomy/term/2644/edit?destination=admin/structure/taxonomy/kontakt\" title=\"Ret kontaktoplysninger\"><span>Ret kontaktoplysninger</span></a></div>";
+              }
+              ?>
+
              <!-- <h3>Ishøj Kommune</h3>
               <p>Ishøj Store Torv 20<br />
               2635 Ishøj<br />
