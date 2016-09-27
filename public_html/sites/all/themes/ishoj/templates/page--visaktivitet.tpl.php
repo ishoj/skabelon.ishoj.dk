@@ -157,7 +157,7 @@
         <?php
 
         if ($_GET['nid'] and $_GET['ds']) {
-          $url = 'http://www.ishoj.dk/json_aktivitet_nid/' . $_GET['nid'] . '?no_login=1&hest=' . rand();
+          $url = 'http://www.ishoj.dk/infotv/json_aktivitet_nid/' . $_GET['nid'] . '?no_login=1&hest=' . rand();
           $request = drupal_http_request($url);
           $json_response = drupal_json_decode($request->data);
           if($json_response) {

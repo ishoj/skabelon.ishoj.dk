@@ -6,7 +6,7 @@
 /************************************************************************/
 function json_aktivitetsliste($tid) {
   $output = "<div class=\"aktivitetsliste\">";
-  $url = "http://www.ishoj.dk/json_aktivitetsliste_arrangoer_tid/" . $tid . "?no_login=1&hest=" . rand();
+  $url = "http://www.ishoj.dk/infotv/json_aktivitetsliste_arrangoer_tid/" . $tid . "?no_login=1&hest=" . rand();
   // Arrangør: Ishøj Naturcenter = tid 3121
   $request = drupal_http_request($url);
   $json_response = drupal_json_decode($request->data);
